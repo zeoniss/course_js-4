@@ -17,7 +17,6 @@ function clearAll() {
   output.textContent = 0
 }
 document.querySelector(".ac").onclick = clearAll
-
 document.querySelector(".buttons").onclick = (event) => {
   if (!event.target.classList.contains("btn")) return // перевіряэмо, чи натиснули саме на кнопку, а не в корпус калькулятора
   if (event.target.classList.contains("ac")) return //натиснута AC
@@ -33,11 +32,14 @@ document.querySelector(".buttons").onclick = (event) => {
       // console.log(a, b, sign)
       output.textContent = a
     } else if (a !== "" && b !== "" && finish) {
+      b = key
+      finish = false
+      output.textContent = b
     }
     //записуємо в змінну b, якщо був натиснут sign
     else {
       b += key
-      output.textContent = a
+      output.textContent = b
     }
     console.table(a, b, sign)
     return
@@ -51,6 +53,7 @@ document.querySelector(".buttons").onclick = (event) => {
   }
   // натиснуто =
   if (key === "=") {
+    if (b === "") b = a
     switch (sign) {
       case "+":
         a = +a + +b // a,b є строки, щоб не було конкатенації ми їх плюсуємо та заносимо в змінну а
@@ -62,6 +65,13 @@ document.querySelector(".buttons").onclick = (event) => {
         a = a * b
         break
       case "/":
+        if (b === "0") {
+          output.textContent = "Ошибка"
+          a = ""
+          b = ""
+          sign = ""
+          return
+        }
         a = a / b
         break
     }
