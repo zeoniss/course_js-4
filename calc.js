@@ -66,7 +66,7 @@ document.querySelector(".buttons").onclick = (event) => {
         break
       case "/":
         if (b === "0") {
-          output.textContent = "Ошибка"
+          output.textContent = "Помилка!"
           a = ""
           b = ""
           sign = ""
